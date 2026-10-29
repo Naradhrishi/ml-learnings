@@ -18,11 +18,7 @@ x = [1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5, 5.5, 6, 6.5, 7, 7.5, 8, 8.5, 9, 9.5, 10,
 y = [35, 38, 42, 45, 50, 52, 58, 62, 65, 68, 72, 75, 78, 82, 85, 88, 90, 93, 95, 44, 55, 74]
 
 # now calculate the predicted value for each input and check without o/p and change accordingly
-z = 0
-while(True):
-    z = z+1
-    if z == 2000:
-        break
+for l in range (1, 3000):
 
     squared_error_sum = 0
     for i in range(len(x)):
@@ -34,7 +30,8 @@ while(True):
 
     # now calculate the MSE here
     mse = squared_error_sum / len(x)
-    print(f'MSE : {mse} | w: {w:.4f} | b: {b:.4f}')
+    if l % 100 == 0 or l == 1:
+        print(f'Iter {l} | MSE : {mse:.4f} | w: {w:.4f} | b: {b:.4f}')
 
 
     y_hat_minus_y = []
@@ -63,5 +60,13 @@ while(True):
     b = b - (n * error_due_to_y_intercept)
 
 
+# I have checked that after 2200 iterations training is DONE 
 
+print(f"\nTraining done! Final w: {w}, b: {b}")
+
+# Save to a simple text file - no library needed
+with open("model.txt", "w") as f:
+    f.write(f"{w},{b}")
+
+print("Model saved to model.txt")
 
